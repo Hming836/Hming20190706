@@ -1,0 +1,76 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.bwei.hming20190706"
+        minSdkVersion 18
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    // BaseDialog
+    implementation 'com.github.HanHuoBin:BaseDialog:1.2.0'
+    // PictureSelector
+    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
+    //动态权限申请库
+    implementation 'pub.devrel:easypermissions:1.3.0'
+// design
+    implementation 'com.android.support:design:28.0.0'
+// X recycler View
+    implementation 'com.jcodecraeer:xrecyclerview:1.5.9'
+// Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
+// Retrofit Gson
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
+// glide
+    implementation 'com.github.bumptech.glide:glide:4.5.0'
+// glide 缓存
+    annotationProcessor('com.github.bumptech.glide:compiler:4.5.0')
+// rx Java
+    implementation "io.reactivex.rxjava2:rxjava:2.2.6"
+// adapter-rx java2
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'
+// 订阅被观察者(找其线程)
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+// event bus
+    implementation 'de.greenrobot:eventbus:3.0.0-beta1'
+// ok http interceptor
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.0.0-RC1'
+// card view
+    implementation 'com.android.support:cardview-v7:28.0.0'
+// AndroidUtilCode
+    implementation 'com.blankj:utilcode:1.24.4'
+// recycler view
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    // butter knife依赖(以下2个都要)
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+}
+// 版本号出错时解决方式
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '28.0.0'
+            }
+        }
+    }
+}
